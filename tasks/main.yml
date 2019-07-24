@@ -6,7 +6,7 @@
 
 - name: Check if VMs are correct
   set_fact:
-    vms: "{{ vms | check_mandatory_params | removesensitive }}"
+    vms: "{{ vms | removesensitivevmdata }}"
 
 - block:
   - name: Login to oVirt
@@ -49,8 +49,8 @@
   always:
     - name: Unset facts
       set_fact:
-          create_vms:
-          create_sensitive_vms:
+          create_vms: []
+          create_sensitive_vms: []
 
     - name: Logout from oVirt
       ovirt_auth:
